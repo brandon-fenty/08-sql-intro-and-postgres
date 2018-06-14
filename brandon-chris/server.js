@@ -45,12 +45,15 @@ app.get('/articles', (request, response) => {
   
   // When the browser requests files from the articles directory (2), the server queries database (3) and gets a response back from the database (4), the server then sends it to the browser (5, 1). The method that is interacting with the server here is the Article.fetchAll method. The part of CRUD that is being enacted here is READ.
 
-  client.query('') // TODO:
+  let SQL = 'SELECT * FROM articles';
+  client.query(SQL) // DONE - TODO:
     .then(function(result) {
       response.send(result.rows);
+      console.log('get successful');
     })
     .catch(function(err) {
       console.error(err)
+      console.log('get failed');
     })
 });
 
@@ -87,9 +90,16 @@ app.put('/articles/:id', (request, response) => {
  
   // This method is used when the browser requests to update a single article, it will send the request to the server (2), then the server will query the database with a specific id number to update (3), the server waits for a response from the database (4), then the server will send a response to the browser telling the user the update has completed or log an error to the console if it was unable to update (5). The method from article.js that handles this request is updateRecord() and this is the UPDATE operation in CRUD.
 
-  // TODO:
-  let SQL = '';
-  let values = [];
+  // DONE - TODO:
+  let SQL = 'UPDATE articles SET title=$2, author=$3, "authorUrl"=$4, category=$5, "publishedOn"=$6, body=$7 WHERE article_id=$1;';
+  let values = 
+  [request.params.id,
+    request.body.title,
+    request.body.author,
+    request.body.authorUrl,
+    request.body.category,
+    request.body.publishedOn,
+    request.body.body];
 
   client.query(SQL, values)
     .then(() => {
@@ -172,7 +182,7 @@ function loadArticles() {
 }
 
 function loadDB() {
-  // COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
+  // DONE - COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
 
   // This method is used when the script loads in the article.js file, it will send a request to the server (2) followed by a  query to the database (3) to check if a SQL table is already present, the server waits for a response from the datatbase (4), then the server will send a response to the browser after determining whether a table is present or not (if a table is not present, it will create one) (5). After the browser receives the response, then it will invoke the loadArticles() method.
 
