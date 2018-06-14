@@ -132,7 +132,7 @@ app.delete('/articles', (request, response) => {
   
   // This method is used when the browser requests to delete every article, it will send the request to the server (2), then the server will query the database to delete all the articles (3), the server waits for a response from the database (4), then the server will send a response to the browser telling the user the delete has completed or log an error to the console if it was unable to delete (5). The method that is used to complete this function is truncateTable() and this is the DESTROY operation of CRUD.
 
-  let SQL = '';
+  let SQL = 'DELETE FROM articles;';
   client.query(SQL)
     .then(() => {
       response.send('Delete complete')
