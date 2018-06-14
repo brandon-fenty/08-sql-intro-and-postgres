@@ -1,22 +1,18 @@
-# Project Name
+# Project Name - 08-sql-intro-and-postgres
 
 **Author**: Brandon Fenty & Chris Chapman
 **Version**: 1.0.0
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
+Kilovolt is a blog to maintain information the user finds interesting. This project includes setting up the backend server and allows redirects for various files. It connects to a database to read, write, update and delete. 
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+The user needs to copy our files into their desired directory to host. Then they initialize the project with npm init, which creates package.json and package-lock.json, and installs nodemon. Their machine also needs to have postgresl installed and working. In server.js they need to modify the assignment of conString to work with their enviroment. 
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+This project uses HTML5, CSS3, Javascript, jQuery, handlebars, marked, highlight, node, express, SQL, postgresql. 
 
 ## Change Log
-<!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+Node.js, jQuery, handlebars, marked, highlight, postgresql. 
