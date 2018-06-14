@@ -2,11 +2,11 @@
 
 const fs = require('fs');
 const express = require('express');
-
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-// TODO: Install and require the NPM package pg and assign it to a variable called pg.
+// DONE - TODO: Install and require the NPM package pg and assign it to a variable called pg.
+const pg = require('pg');
 
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString (connection string, containing protocol and port, etc.) is composed of additional information including user and password.
@@ -15,10 +15,10 @@ const app = express();
 // const conString = 'postgres://postgres:1234@localhost:5432/kilovolt'
 
 // Mac:
-// const conString = 'postgres://localhost:5432/kilovolt';
+const conString = 'postgres://localhost:5432/kilovolt';
 
-// TODO: Pass the conString into the Client constructor so that the new database interface instance has the information it needs
-const client = new pg.Client();
+// DONE - TODO: Pass the conString into the Client constructor so that the new database interface instance has the information it needs
+const client = new pg.Client(conString);
 
 // REVIEW: Use the client object to connect to our DB.
 client.connect();
@@ -32,17 +32,20 @@ app.use(express.static('./public'));
 
 // REVIEW: Routes for requesting HTML resources
 app.get('/new-article', (request, response) => {
-  // COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // DONE - COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
+
+  // This app.get is triggered when the user(1) enters a url with the path of new-article(2), the server will then look for the file in the public directory (6), it will then serve the file to the browser (5) 
   response.sendFile('new.html', { root: './public' });
 });
 
 
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
 app.get('/articles', (request, response) => {
-  // COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
-  client.query('')
+  // DONE - COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
+  
+  // When the browser requests files from the articles directory (2), the server queries database (3) and gets a response back from the database (4), the server then sends it to the browser (5, 1). The method that is interacting with the server here is the Article.fetchAll method. The part of CRUD that is being enacted here is READ.
+
+  client.query('') // TODO:
     .then(function(result) {
       response.send(result.rows);
     })
@@ -52,8 +55,10 @@ app.get('/articles', (request, response) => {
 });
 
 app.post('/articles', (request, response) => {
-  // COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // DONE - COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
+  
+  // The browser initiates a post to /articles (2), then the server will insert the new post into articles on the database (3), then the server waits for a response from the database that the insert is complete (4), then it sends a response to the browser (5). If it was successful, the response will be sent to the user, otherwise an error will be logged to the console.
+
   let SQL = `
     INSERT INTO articles(title, author, "authorUrl", category, "publishedOn", body)
     VALUES ($1, $2, $3, $4, $5, $6);
@@ -81,6 +86,7 @@ app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to this route? Be sure to take into account how the request was initiated, how it was handled, and how the response was delivered. Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // PUT YOUR RESPONSE HERE
 
+  // TODO:
   let SQL = '';
   let values = [];
 
